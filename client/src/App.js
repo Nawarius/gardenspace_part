@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import PsdLoader from './PSD/classes/PsdLoader'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const loadAndParsePsd = async () => {
+      const PsdLoaderInst = new PsdLoader()
+      await PsdLoaderInst.init()
+      
+      setLoading(false)
+    }
+
+    loadAndParsePsd()
+    
+  }, [])
+
+  return <>
+    {loading && <div>Loading...</div>}
+    {!loading && <div>Parsed</div>}
+  </>
 }
 
 export default App;
