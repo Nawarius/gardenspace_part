@@ -23,7 +23,7 @@ function App() {
   }, [])
 
   return <>
-    {loading && <div>Loading...</div>}
+    {loading && <div style = {{width: '100%', height: '100%', textAlign: 'center'}}>Loading...</div>}
     {!loading && <MainComponent imagesData = {imagesData} />}
   </>
 }

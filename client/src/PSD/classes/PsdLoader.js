@@ -8,7 +8,7 @@ class PsdLoader {
 
     async init () {
         this.psd = await this._load('psd/test_task.psd')
-        this.imagesData = [...this.psd.children]
+        this._setImageDataRecursive(this.psd.children)
 
         console.log(this.imagesData)
     }
@@ -20,6 +20,17 @@ class PsdLoader {
         const psd = readPsd(buffer)
 
         return psd
+    }
+
+    _addImageData (imageData) {
+        this.imagesData.push(imageData)
+    }
+
+    _setImageDataRecursive (imagesDataArr) {
+        for (let child of imagesDataArr) {
+            if (child.children) this._setImageDataRecursive(child.children)
+            if (child.canvas) this._addImageData(child)
+        }
     }
 
     getImagesData () {
