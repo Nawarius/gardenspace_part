@@ -14,13 +14,15 @@ const MainComponent = () => {
 
     useEffect(() => {
         const app = new PIXI.Application({
-            view: document.getElementById("pixi-canvas"),
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
-            backgroundColor: 'black',
             width: window.innerWidth,
             height: window.innerHeight
         })
+
+        app.view.style.background = 'black'
+        app.view.style.position = 'fixed'
+        document.getElementById('root').appendChild(app.view)
 
         getAppContext = () => ({ app })
 
@@ -38,9 +40,7 @@ const MainComponent = () => {
 
     }, [])
 
-    return <>
-        <canvas id = 'pixi-canvas' style = {{width: '100%', height: '100%', position: 'fixed'}}></canvas>
-    </>
+    return <></>
 }
 
 export default MainComponent
