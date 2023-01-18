@@ -32,7 +32,13 @@ function initEnterMenu (app) {
         layer3.visible = false
         btn.visible = false
 
-        setTimeout(() => hammer.visible = true, 2000)
+        setTimeout(() => {
+            hammer.scale.set(0.1)
+            hammer.visible = true
+
+            const ease = new Ease({ duration: 1000, wait: 0, ease: 'easeOutQuad', repeat: 1 })
+            ease.add(hammer, { scale: 1 })
+        }, 1000)
     })
 }
 

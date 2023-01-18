@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import MainComponent from './MainComponent'
 import PsdLoader from './PSD/classes/PsdLoader'
 
+export let getImagesDataContext = () => {}
+
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -12,9 +14,11 @@ function App() {
       const PsdLoaderInst = new PsdLoader()
       await PsdLoaderInst.init()
       
-      const imgData = PsdLoaderInst.getImagesData()
+      const data = PsdLoaderInst.getImagesData()
       
-      setImagesData(imgData)
+      getImagesDataContext = () => ({ imagesData: data })
+
+      setImagesData(data)
       setLoading(false)
     }
 
