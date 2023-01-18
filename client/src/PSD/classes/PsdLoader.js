@@ -1,4 +1,5 @@
 import { readPsd } from 'ag-psd'
+import axios from 'axios'
 
 class PsdLoader {
     constructor () {
@@ -9,8 +10,8 @@ class PsdLoader {
         }
     }
 
-    async init (url) {
-        this.psd = await this._load(url)
+    async init (url, loadingCb) {
+        this.psd = await this._load(url, loadingCb)
         this._setImageDataRecursive(this.psd.children)
 
         this.imagesData.unparsed = this.psd.children
@@ -18,10 +19,13 @@ class PsdLoader {
         console.log(this.imagesData)
     }
 
-    async _load (url) {
-        const res = await fetch(url)
-        const buffer = await res.arrayBuffer()
+    async _load (url, loadingCb) {
+        const resData = await axios.get(url, {
+            responseType: 'arraybuffer',
+            onDownloadProgress: (p) => loadingCb((p.loaded / p.total * 100).toFixed(0))
+        })
 
+        const buffer = resData.data
         const psd = readPsd(buffer)
 
         return psd
