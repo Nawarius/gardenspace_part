@@ -2,8 +2,10 @@ import { getImagesDataContext } from "../App"
 import displayFinalMenu from "../display/displayFinalMenu"
 import changeStair from "../general/changeStair"
 import { Ease } from 'pixi-ease'
+import { getAppContext } from "../MainComponent"
 
-function initStairsMenu (app) {
+function initStairsMenu () {
+    const {app} = getAppContext()
     const {imagesData} = getImagesDataContext()
 
     const imagesNames = imagesData.unparsed.find(i => i.name === 'menu').children.map(c => c.name)

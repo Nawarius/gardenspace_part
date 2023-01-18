@@ -10,7 +10,7 @@ import displayFinalMenu from './display/displayFinalMenu'
 
 export let getAppContext = () => {}
 
-const MainComponent = ({imagesData}) => {
+const MainComponent = () => {
 
     useEffect(() => {
         const app = new PIXI.Application({
@@ -25,13 +25,13 @@ const MainComponent = ({imagesData}) => {
         getAppContext = () => ({ app })
 
         // Add all sprites from psd data
-        addSprites(imagesData.parsed, app)
+        addSprites()
 
         // Init state of app
         initFinalMenu()
-        initHammer(app)
-        initStairs(app)
-        initStairsMenu(app)
+        initHammer()
+        initStairs()
+        initStairsMenu()
 
         displayFinalMenu(false)
         displayStairsMenu(false)

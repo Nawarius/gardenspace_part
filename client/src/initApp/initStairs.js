@@ -1,5 +1,8 @@
+import { getAppContext } from "../MainComponent"
 
-function initStairs (app) {
+function initStairs () {
+    const {app} = getAppContext()
+
     const stairs = app.stage.children.filter(i => i.name.includes('stair'))
     const oldStair = stairs.find(i => i.name === 'old_stair')
 

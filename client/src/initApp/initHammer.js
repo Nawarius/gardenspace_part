@@ -1,7 +1,10 @@
 import { Ease } from 'pixi-ease'
 import displayStairsMenu from '../display/displayStairsMenu'
+import { getAppContext } from '../MainComponent'
 
-function initHammer (app) {
+function initHammer () {
+    const {app} = getAppContext()
+
     const hammer = app.stage.getChildByName('icon_hammer')
     hammer.visible = false
     hammer.interactive = true
