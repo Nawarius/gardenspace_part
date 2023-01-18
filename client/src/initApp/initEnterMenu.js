@@ -16,7 +16,6 @@ function initEnterMenu (app) {
     btn.cursor = 'pointer'
 
     const hammer = app.stage.getChildByName('icon_hammer')
-    hammer.visible = false
 
     btn.on('pointerover', () => {
         const ease = new Ease({ duration: 400, wait: 0, ease: 'easeInBack', repeat: 1 })

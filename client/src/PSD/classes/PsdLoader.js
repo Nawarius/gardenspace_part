@@ -3,12 +3,17 @@ import { readPsd } from 'ag-psd'
 class PsdLoader {
     constructor () {
         this.psd = null
-        this.imagesData = []
+        this.imagesData = {
+            parsed: [],
+            unparsed: []
+        }
     }
 
     async init () {
         this.psd = await this._load('psd/test_task.psd')
         this._setImageDataRecursive(this.psd.children)
+
+        this.imagesData.unparsed = this.psd.children
 
         console.log(this.imagesData)
     }
@@ -23,7 +28,7 @@ class PsdLoader {
     }
 
     _addImageData (imageData) {
-        this.imagesData.push(imageData)
+        this.imagesData.parsed.push(imageData)
     }
 
     _setImageDataRecursive (imagesDataArr) {

@@ -2,7 +2,10 @@ import React, { useEffect } from 'react'
 import * as PIXI from 'pixi.js'
 import addSprites from './Sprites/addSprites'
 import { Ease } from 'pixi-ease'
-import initEnterMenu from './EnterMenu/initEnterMenu'
+import initEnterMenu from './initApp/initEnterMenu'
+import initStairsMenu from './initApp/initStairsMenu'
+import initStairs from './initApp/initStairs'
+import initHammer from './initApp/initHammer'
 
 const MainComponent = ({imagesData}) => {
 
@@ -16,9 +19,14 @@ const MainComponent = ({imagesData}) => {
             height: window.innerHeight
         })
 
-        addSprites(imagesData, app)
+        // Add all sprites from psd data
+        addSprites(imagesData.parsed, app)
 
+        // Init state of app
         initEnterMenu(app)
+        initHammer(app)
+        initStairs(app)
+        initStairsMenu(imagesData.unparsed, app)
 
     }, [])
 
