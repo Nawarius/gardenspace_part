@@ -1,6 +1,9 @@
 import { Ease } from 'pixi-ease'
+import { getAppContext } from '../MainComponent'
 
-function initEnterMenu (app) {
+function initFinalMenu () {
+    const {app} = getAppContext()
+
     const layer2 = app.stage.getChildByName('Layer 2')
     layer2.position.x = window.innerWidth / 2 - layer2.width / 2
 
@@ -14,8 +17,6 @@ function initEnterMenu (app) {
     btn.position.y += btn.height / 2
     btn.interactive = true
     btn.cursor = 'pointer'
-
-    const hammer = app.stage.getChildByName('icon_hammer')
 
     btn.on('pointerover', () => {
         const ease = new Ease({ duration: 400, wait: 0, ease: 'easeInBack', repeat: 1 })
@@ -31,15 +32,7 @@ function initEnterMenu (app) {
         layer2.visible = false
         layer3.visible = false
         btn.visible = false
-
-        setTimeout(() => {
-            hammer.scale.set(0.1)
-            hammer.visible = true
-
-            const ease = new Ease({ duration: 1000, wait: 0, ease: 'easeOutQuad', repeat: 1 })
-            ease.add(hammer, { scale: 1 })
-        }, 1000)
     })
 }
 
-export default initEnterMenu
+export default initFinalMenu

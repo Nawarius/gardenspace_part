@@ -1,4 +1,7 @@
 import { getImagesDataContext } from "../App"
+import displayFinalMenu from "../display/displayFinalMenu"
+import changeStair from "../general/changeStair"
+import { Ease } from 'pixi-ease'
 
 function initStairsMenu (app) {
     const {imagesData} = getImagesDataContext()
@@ -22,17 +25,31 @@ function initStairsMenu (app) {
         substrates.push(substrate)
     }
 
+    let stairNum = 2
     // Change choose/ok_btn coords 
     app.ticker.add((e) => {
         const mousePos = app.renderer.plugins.interaction.mouse.global
         for (let substrate of substrates) {
             if (substrate.containsPoint(mousePos)) {
-                choosed.position.set(substrate.position.x, substrate.position.y)
-                ok_btn.position.x = substrate.position.x
+                if (stairNum === +substrate.name) return
+
+                stairNum = +substrate.name
+
+                choosed.alpha = 0.1
+                choosed.position.x = substrate.position.x
+
+                const ease = new Ease({ duration: 400, wait: 0, ease: 'easeOutQuad', repeat: 1 })
+                ease.add(ok_btn, { x: substrate.position.x })
+
+                const ease2 = new Ease({ duration: 400, wait: 0, ease: 'easeOutQuad', repeat: 1 })
+                ease2.add(choosed, { alpha: 1 })
+
+                ease2.once('complete', () => changeStair(`new_stair_0${stairNum}`))
             }
         }
     })
 
+    ok_btn.on('click', () => displayFinalMenu(true))
 }
 
 export default initStairsMenu

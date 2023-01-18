@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import * as PIXI from 'pixi.js'
 import addSprites from './Sprites/addSprites'
-import initEnterMenu from './initApp/initEnterMenu'
+import initFinalMenu from './initApp/initFinalMenu'
 import initStairsMenu from './initApp/initStairsMenu'
 import initStairs from './initApp/initStairs'
 import initHammer from './initApp/initHammer'
 import displayStairsMenu from './display/displayStairsMenu'
+import displayFinalMenu from './display/displayFinalMenu'
 
 export let getAppContext = () => {}
 
@@ -27,11 +28,12 @@ const MainComponent = ({imagesData}) => {
         addSprites(imagesData.parsed, app)
 
         // Init state of app
-        initEnterMenu(app)
+        initFinalMenu()
         initHammer(app)
         initStairs(app)
         initStairsMenu(app)
 
+        displayFinalMenu(false)
         displayStairsMenu(false)
 
     }, [])
