@@ -4,6 +4,8 @@ import PsdLoader from './PSD/classes/PsdLoader'
 
 export let getImagesDataContext = () => {}
 
+const psd_url = window.location.hostname === 'localhost' ? 'psd/test_task.psd' : 'https://dl.dropbox.com/s/tbscjmprhglankt/test_task.psd'
+
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -11,7 +13,7 @@ function App() {
   useEffect(() => {
     const loadAndParsePsd = async () => {
       const PsdLoaderInst = new PsdLoader()
-      await PsdLoaderInst.init()
+      await PsdLoaderInst.init(psd_url)
       
       const data = PsdLoaderInst.getImagesData()
       
@@ -25,7 +27,10 @@ function App() {
   }, [])
 
   return <>
-    {loading && <div style = {{width: '100%', height: '100%', textAlign: 'center'}}>Loading...</div>}
+    {loading && <div style = {{width: '100%', height: '100%', textAlign: 'center'}}>
+      Loading and parse PSD... 
+      Please wait.
+    </div>}
     {!loading && <MainComponent />}
   </>
 }

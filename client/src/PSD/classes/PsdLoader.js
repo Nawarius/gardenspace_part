@@ -9,8 +9,8 @@ class PsdLoader {
         }
     }
 
-    async init () {
-        this.psd = await this._load('psd/test_task.psd')
+    async init (url) {
+        this.psd = await this._load(url)
         this._setImageDataRecursive(this.psd.children)
 
         this.imagesData.unparsed = this.psd.children

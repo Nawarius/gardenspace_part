@@ -18,6 +18,7 @@ function initStairsMenu () {
 
     const choosed = app.stage.getChildByName('choosed')
     const ok_btn = app.stage.getChildByName('ok')
+    ok_btn.alpha = 0.8
 
     const substratesNames = imagesNames.filter(n => n === '1' || n === '2' || n === '3')
     const substrates = []
@@ -32,6 +33,8 @@ function initStairsMenu () {
     app.ticker.add((e) => {
         const mousePos = app.renderer.plugins.interaction.mouse.global
         for (let substrate of substrates) {
+            if (!substrate.visible) return
+
             if (substrate.containsPoint(mousePos)) {
                 if (stairNum === +substrate.name) return
 
@@ -46,12 +49,22 @@ function initStairsMenu () {
                 const ease2 = new Ease({ duration: 400, wait: 0, ease: 'easeOutQuad', repeat: 1 })
                 ease2.add(choosed, { alpha: 1 })
 
-                ease2.once('complete', () => changeStair(`new_stair_0${stairNum}`))
+                changeStair(`new_stair_0${stairNum}`)
             }
         }
     })
 
     ok_btn.on('click', () => displayFinalMenu(true))
+
+    ok_btn.on('pointerover', () => {
+        const ease = new Ease({ duration: 500, wait: 0, ease: 'easeOutQuad', repeat: 1 })
+        ease.add(ok_btn, { alpha: 1 })
+    })
+
+    ok_btn.on('pointerout', () => {
+        const ease = new Ease({ duration: 500, wait: 0, ease: 'easeOutQuad', repeat: 1 })
+        ease.add(ok_btn, { alpha: 0.8 })
+    })
 }
 
 export default initStairsMenu
